@@ -125,14 +125,16 @@ public class Game extends AppCompatActivity {
     public void endGame() {
         pauseCh();
         AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
-        builder.setMessage("You win!")
-                .setMessage("Your time: " + milliseconds / 60000 + " minutes " + (milliseconds - milliseconds / 60) / 1000 + " seconds")
+        builder.setTitle("You win!")
+                .setMessage("Your time: " + milliseconds / 60000 + " minutes " + (milliseconds / 1000 - (milliseconds / 60000) * 60) + " seconds")
                 .setCancelable(false)
                 .setPositiveButton("Restart", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         logic.newGame();
                         graphic.update(logic);
+                        resetCh();
+                        startCh();
                     }
                 })
                 .setNegativeButton("Back to menu", new DialogInterface.OnClickListener() {
