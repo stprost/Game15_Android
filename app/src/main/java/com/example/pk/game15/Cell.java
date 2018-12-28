@@ -1,6 +1,10 @@
 package com.example.pk.game15;
 
 import android.app.Activity;
+import android.icu.util.MeasureUnit;
+import android.support.v4.content.ContextCompat;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.GridLayout;
 
@@ -13,6 +17,7 @@ class Cell extends android.support.v7.widget.AppCompatButton {
         params.height = 0;
         params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
         params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+        params.setGravity(Gravity.FILL);
         setLayoutParams(params);
 
         setOnClickListener(new OnClickListener() {
@@ -28,6 +33,7 @@ class Cell extends android.support.v7.widget.AppCompatButton {
     //задание стиля не пустой кнопки
     public void normalStyle(){
         setBackgroundResource(R.drawable.scaleshape);
-        setTextAppearance(R.style.normalStyle);
+        setTextColor(ContextCompat.getColor(getContext(), R.color.wight));
+        setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
     }
 }

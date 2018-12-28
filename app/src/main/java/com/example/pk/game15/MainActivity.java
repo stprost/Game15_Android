@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,14 +22,15 @@ public class MainActivity extends AppCompatActivity {
 
         Button play = findViewById(R.id.play);
         Button rules = findViewById(R.id.rules);
-        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            width = display.getWidth() / 3;
-            height = display.getWidth() / 5;
+            width = metrics.widthPixels / 3;
+            height = metrics.widthPixels / 5;
         }
         else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            width = display.getHeight() / 3;
-            height = display.getHeight() / 5;
+            width = metrics.heightPixels / 3;
+            height = metrics.heightPixels / 5;
         }
         ViewGroup.LayoutParams params = play.getLayoutParams();
         params.width = width;

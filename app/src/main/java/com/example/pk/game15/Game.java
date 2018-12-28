@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,13 +31,15 @@ public class Game extends AppCompatActivity {
 
         Intent intent = getIntent();
         int side = intent.getIntExtra("side", 4);
-        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            width = display.getWidth() - 150;
-            height = display.getWidth() - 150;
-        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            width = display.getHeight() - 150;
-            height = display.getHeight() - 150;
+            width = metrics.widthPixels - 150;
+            height = metrics.widthPixels - 150;
+        }
+        else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            width = metrics.heightPixels - 150;
+            height = metrics.heightPixels -150;
         }
         GridLayout field = findViewById(R.id.field);
         ViewGroup.LayoutParams params = field.getLayoutParams();

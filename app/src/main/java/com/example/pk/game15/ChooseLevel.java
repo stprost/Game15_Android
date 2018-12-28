@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,14 +22,15 @@ public class ChooseLevel extends AppCompatActivity {
         Button normal = findViewById(R.id.normal);
         Button easy = findViewById(R.id.easy);
         Button hard = findViewById(R.id.hard);
-        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            width = display.getWidth() / 3;
-            height = display.getWidth() / 7;
+            width = metrics.widthPixels / 3;
+            height = metrics.widthPixels / 7;
         }
         else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            width = display.getHeight() / 3;
-            height = display.getHeight() / 7;
+            width = metrics.heightPixels / 3;
+            height = metrics.heightPixels / 7;
         }
         ViewGroup.LayoutParams params = easy.getLayoutParams();
         params.width = width;
