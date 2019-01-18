@@ -3,6 +3,7 @@ package com.example.pk.game15;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
@@ -22,14 +23,17 @@ public class Game extends AppCompatActivity {
     private Graphic graphic;
     private int width;
     private int height;
+    private Resources res;
+    private boolean isPaused = false;
+    private boolean isEnd = false;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
+        res = getResources();
         Intent intent = getIntent();
-        int side = intent.getIntExtra("side", 4);
+        int side = intent.getIntExtra("side", res.getInteger(R.integer.sideFour));
         Display display = getWindowManager().getDefaultDisplay();
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             width = display.getWidth() - 150;
@@ -47,7 +51,8 @@ public class Game extends AppCompatActivity {
         field.setRowCount(side);
 
         chronometer = findViewById(R.id.chronometer);
-        chronometer.setFormat("Time: %s");
+        String chr = res.getText(R.string.chronometr).toString();
+        chronometer.setFormat(chr + " %s");
         chronometer.setBase(SystemClock.elapsedRealtime());
         milliseconds = 0;
         startCh();
@@ -57,36 +62,17 @@ public class Game extends AppCompatActivity {
         if (savedInstanceState != null) {
             logic = savedInstanceState.getParcelable("logic");
             chronometer.setBase(savedInstanceState.getLong("milliseconds"));
+            if (savedInstanceState.getBoolean("isPaused")) pause();
+            if (savedInstanceState.getBoolean("isEnd")) endGame();
         }
 
         graphic = new Graphic(this, this, field, logic, side);
 
-        Button pause = findViewById(R.id.pause_button);
+        final Button pause = findViewById(R.id.pause_button);
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pauseCh();
-                AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
-                builder.setMessage("Paused")
-                        .setCancelable(false)
-                        .setNegativeButton("Restart", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                logic.newGame();
-                                graphic.update(logic);
-                                resetCh();
-                                startCh();
-                            }
-                        })
-                        .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                                startCh();
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
+                pause();
             }
         });
 
@@ -121,27 +107,61 @@ public class Game extends AppCompatActivity {
         milliseconds = 0;
     }
 
-    //диалоговое окно приокончании игры
-    public void endGame() {
+    public void pause(){
         pauseCh();
+        isPaused = true;
         AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
-        builder.setTitle("You win!")
-                .setMessage("Your time: " + milliseconds / 60000 + " minutes " + (milliseconds / 1000 - (milliseconds / 60000) * 60) + " seconds")
+        builder.setMessage(res.getText(R.string.paused))
                 .setCancelable(false)
-                .setPositiveButton("Restart", new DialogInterface.OnClickListener() {
+                .setNegativeButton(res.getText(R.string.restart), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         logic.newGame();
                         graphic.update(logic);
                         resetCh();
                         startCh();
+                        isPaused = false;
                     }
                 })
-                .setNegativeButton("Back to menu", new DialogInterface.OnClickListener() {
+                .setPositiveButton(res.getText(R.string.contin), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        startCh();
+                        isPaused = false;
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    //диалоговое окно приокончании игры
+    public void endGame() {
+        isEnd = true;
+        pauseCh();
+        String time = res.getText(R.string.time).toString();
+        String min = res.getText(R.string.min).toString();
+        String sec = res.getText(R.string.sec).toString();
+        AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
+        builder.setTitle(res.getText(R.string.win))
+                .setMessage(time + " " + milliseconds / res.getInteger(R.integer.convertToMin) + min + " " + (milliseconds / res.getInteger(R.integer.convertToSec) - (milliseconds / res.getInteger(R.integer.convertToMin)) * res.getInteger(R.integer.sixty)) + " " + sec)
+                .setCancelable(false)
+                .setPositiveButton(res.getText(R.string.restart), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        logic.newGame();
+                        graphic.update(logic);
+                        resetCh();
+                        startCh();
+                        isEnd = false;
+                    }
+                })
+                .setNegativeButton(res.getText(R.string.toMenu), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(Game.this, MainActivity.class);
                         startActivity(intent);
+                        isEnd = false;
                     }
                 });
         AlertDialog alert = builder.create();
@@ -154,5 +174,7 @@ public class Game extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putParcelable("logic", logic);
         outState.putLong("milliseconds", chronometer.getBase());
+        outState.putBoolean("isEnd", isEnd);
+        outState.putBoolean("isPaused", isPaused);
     }
 }

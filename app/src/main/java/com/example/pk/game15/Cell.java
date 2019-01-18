@@ -33,7 +33,7 @@ class Cell extends android.support.v7.widget.AppCompatButton {
     //задание стиля не пустой кнопки
     public void normalStyle(){
         setBackgroundResource(R.drawable.scaleshape);
-        setTextColor(ContextCompat.getColor(getContext(), R.color.wight));
+        setTextColor(ContextCompat.getColor(getContext(), R.color.white));
         setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
     }
 }
