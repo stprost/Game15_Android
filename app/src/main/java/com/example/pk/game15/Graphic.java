@@ -29,7 +29,7 @@ class Graphic {
                 cells[i].setText(Integer.toString(logic.getTiles()[i]));
                 cells[i].normalStyle();
             } else {
-                cells[i].setBackgroundResource(R.color.wight);
+                cells[i].setBackgroundResource(R.color.white);
                 cells[i].setText(" ");
             }
         }

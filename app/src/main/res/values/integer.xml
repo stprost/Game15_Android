@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="sideFour">4</integer>
+    <integer name="sideFive">5</integer>
+    <integer name="sideSix">6</integer>
+    <integer name="playGridIdent">50</integer>
+    <integer name="convertToMin">60000</integer>
+    <integer name="convertToSec">1000</integer>
+    <integer name="sixty">60</integer>
+
+    <integer name="widthMenuButton">140</integer>
+    <integer name="heightMenuButton">60</integer>
+    <integer name="menuButtonMargin">10</integer>
+    <integer name="shadowRadius">10</integer>
+
+
+</resources>
