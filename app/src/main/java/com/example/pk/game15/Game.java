@@ -36,11 +36,11 @@ public class Game extends AppCompatActivity {
         int side = intent.getIntExtra("side", res.getInteger(R.integer.sideFour));
         Display display = getWindowManager().getDefaultDisplay();
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            width = display.getWidth() - 150;
-            height = display.getWidth() - 150;
+            width = display.getWidth() - res.getInteger(R.integer.playGridIdent);
+            height = display.getWidth() - res.getInteger(R.integer.playGridIdent);
         } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            width = display.getHeight() - 150;
-            height = display.getHeight() - 150;
+            width = display.getHeight() - res.getInteger(R.integer.playGridIdent);
+            height = display.getHeight() - res.getInteger(R.integer.playGridIdent);
         }
         GridLayout field = findViewById(R.id.field);
         ViewGroup.LayoutParams params = field.getLayoutParams();
@@ -68,7 +68,7 @@ public class Game extends AppCompatActivity {
 
         graphic = new Graphic(this, this, field, logic, side);
 
-        final Button pause = findViewById(R.id.pause_button);
+        Button pause = findViewById(R.id.pause_button);
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +76,7 @@ public class Game extends AppCompatActivity {
             }
         });
 
-        Button menu = findViewById(R.id.menu_button);
+        final Button menu = findViewById(R.id.menu_button);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +84,19 @@ public class Game extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+//        Button solve = findViewById(R.id.solve);
+//        solve.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MyBot myBot = new MyBot(logic, graphic);
+//                try {
+//                    myBot.bot();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
     }
 
     private void startCh() {

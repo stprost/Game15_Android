@@ -17,6 +17,7 @@
     <string name="toMenu">Back to menu</string>
 
     <string name="menu">Menu</string>
+    <string name="solve">Solve</string>
     <string name="pause">Pause</string>
     <string name="chronometr">Time:</string>
 </resources>

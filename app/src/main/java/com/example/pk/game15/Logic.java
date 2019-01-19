@@ -154,6 +154,14 @@ public class Logic implements Parcelable {
         return gameOver;
     }
 
+    public int getSide() {
+        return side;
+    }
+
+    public int getNumTiles() {
+        return numTiles;
+    }
+
     @Override
     public int describeContents() {
         return 0;

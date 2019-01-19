@@ -32,6 +32,26 @@
             android:textSize="17sp"
             tools:ignore="HardcodedText" />
 
+        <!--<Button-->
+            <!--android:id="@+id/solve"-->
+
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_centerVertical="true"-->
+
+            <!--android:layout_marginStart="121dp"-->
+            <!--android:layout_marginEnd="118dp"-->
+            <!--android:background="@drawable/buttonshape"-->
+            <!--android:fontFamily="@font/armata"-->
+            <!--android:shadowColor="@color/shadowColor"-->
+            <!--android:shadowRadius="@integer/shadowRadius"-->
+            <!--android:text="@string/solve"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="15sp"-->
+            <!--tools:ignore="HardcodedText" />-->
+
         <Button
             android:id="@+id/pause_button"
 
@@ -42,12 +62,12 @@
             android:layout_marginEnd="12dp"
 
             android:background="@drawable/buttonshape"
+            android:fontFamily="@font/armata"
             android:shadowColor="@color/shadowColor"
             android:shadowRadius="@integer/shadowRadius"
             android:text="@string/pause"
             android:textColor="@color/white"
             android:textSize="17sp"
-            android:fontFamily="@font/armata"
             tools:ignore="HardcodedText" />
 
     </RelativeLayout>
