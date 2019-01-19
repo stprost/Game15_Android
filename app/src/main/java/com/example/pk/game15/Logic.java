@@ -81,7 +81,7 @@ public class Logic implements Parcelable {
     public void move(int position){
         int k;
         if(position != blankPos) {
-            if (blankPos % side < 3 && position == blankPos + 1) {
+            if (blankPos % side < (side - 1) && position == blankPos + 1) {
                 k = tiles[blankPos];
                 tiles[blankPos] = tiles[position];
                 tiles[position] = k;
@@ -93,13 +93,13 @@ public class Logic implements Parcelable {
                 tiles[position] = k;
                 blankPos = position;
             }
-            if (blankPos / side < 3 && position == blankPos + 4) {
+            if (blankPos / side < (side - 1) && position == blankPos + side) {
                 k = tiles[blankPos];
                 tiles[blankPos] = tiles[position];
                 tiles[position] = k;
                 blankPos = position;
             }
-            if (blankPos / side > 0 && position == blankPos - 4) {
+            if (blankPos / side > 0 && position == blankPos - side) {
                 k = tiles[blankPos];
                 tiles[blankPos] = tiles[position];
                 tiles[position] = k;
@@ -108,6 +108,39 @@ public class Logic implements Parcelable {
         }
         gameOver = isSolved();
     }
+
+    // Неправильный метод для тестов
+
+//    public void move(int position){
+//        int k;
+//        if(position != blankPos) {
+//            if (blankPos % side < 3 && position == blankPos + 1) {
+//                k = tiles[blankPos];
+//                tiles[blankPos] = tiles[position];
+//                tiles[position] = k;
+//                blankPos = position;
+//            }
+//            if (blankPos % side > 0 && position == blankPos - 1) {
+//                k = tiles[blankPos];
+//                tiles[blankPos] = tiles[position];
+//                tiles[position] = k;
+//                blankPos = position;
+//            }
+//            if (blankPos / side < 3 && position == blankPos + 4) {
+//                k = tiles[blankPos];
+//                tiles[blankPos] = tiles[position];
+//                tiles[position] = k;
+//                blankPos = position;
+//            }
+//            if (blankPos / side > 0 && position == blankPos - 4) {
+//                k = tiles[blankPos];
+//                tiles[blankPos] = tiles[position];
+//                tiles[position] = k;
+//                blankPos = position;
+//            }
+//        }
+//        gameOver = isSolved();
+//    }
 
     public int[] getTiles() {
         return tiles;

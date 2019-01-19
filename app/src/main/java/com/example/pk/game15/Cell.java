@@ -1,7 +1,6 @@
 package com.example.pk.game15;
 
 import android.app.Activity;
-import android.icu.util.MeasureUnit;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -9,6 +8,8 @@ import android.view.View;
 import android.widget.GridLayout;
 
 class Cell extends android.support.v7.widget.AppCompatButton {
+
+    private String num;
     //описание кнопки/клетки
     Cell (Activity activity, final Logic logic, final Graphic graphic){
         super(activity, null);
@@ -35,5 +36,13 @@ class Cell extends android.support.v7.widget.AppCompatButton {
         setBackgroundResource(R.drawable.scaleshape);
         setTextColor(ContextCompat.getColor(getContext(), R.color.white));
         setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+    }
+
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num;
     }
 }
